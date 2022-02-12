@@ -1,3 +1,7 @@
+from welcome import welcome_message
+
+print(welcome_message)
+
 #Ask user to enter the number of cents
 cent = int(input('How many cents ? '))
 
@@ -18,7 +22,6 @@ nickel=int((remainder2-remainder3)/5)
 remainder4 = remainder3
 penny= remainder4
 
-print (remainder3)
 
 if(quarter>1):
    qt="quarters"
@@ -28,7 +31,45 @@ if(dime>1):
    dm="dimes"
 if(penny>1):
    py="pennies"
-   
-#print the output  
-print(quarter,qt,",",dime,dm,",",nickel,nk,"and",penny,py)
+
+lst = [
+        [quarter, qt],
+        [dime, dm],
+        [nickel, nk],
+        [penny, py]
+]
+
+
+and_ = None
+
+counter = 0
+for i in lst:
+	if i[0] >= 1:
+		counter+=1
+
+
+if counter >= 2:
+	and_ = True
+		
+
+ 
+string = f">>>{cent}\n"
+if and_ == True:
+	for i in lst[:-1]:
+		if i[0] <= 0:
+			continue
+		string+=f"{i[0]} {i[1]},"
+	string = string[:-1]
+	string += f" and {lst[-1][0]} {lst[-1][1]}"
+
+if and_ == None:
+	for i in lst:
+		if i[0] <= 0:
+			continue
+		if i[0] >= 1:
+			print(i[0], i[1])
+			string += f"{i[0]} {i[1]}"
+
+print(string)
+
 
