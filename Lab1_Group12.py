@@ -57,20 +57,20 @@ if counter >= 2:
 
  
 string = f">>>{cent}\n"
-if and_ == True:
-	for i in lst[:-1]:
+if and_ != None:
+	for i in lst:
 		if i[0] <= 0:
 			continue
 		string+=f"{i[0]} {i[1]},"
 	string = string[:-1]
-	string += f" and {lst[-1][0]} {lst[-1][1]}"
+	string =string.split(",", -1)
+	string = ",".join(string[:-1]) + " and " + string[-1]
 
 if and_ == None:
 	for i in lst:
 		if i[0] <= 0:
 			continue
 		if i[0] >= 1:
-			print(i[0], i[1])
 			string += f"{i[0]} {i[1]}"
 
 print(string)
