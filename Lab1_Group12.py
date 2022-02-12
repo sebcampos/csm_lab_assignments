@@ -1,4 +1,7 @@
-from welcome import welcome_message
+welcome_message = """
+🆆🅴🅻🅲🅾🅼🅴 ❗
+"""
+
 
 print(welcome_message)
 
