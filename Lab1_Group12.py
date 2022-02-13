@@ -48,7 +48,7 @@ remainder4 = remainder3
 penny= remainder4
 
 
-# contitionals to check if defined names should be
+# conditionals to check if defined names should be
 # singular or plural
 if(quarter>1):
    qt="quarters"
@@ -80,7 +80,7 @@ for i in lst:
 	if i[0] >= 1:
 		counter+=1
 
-#if more than one cent count is greater than one
+#if counter is greater than one
 #set and_ to True
 if counter >= 2:
 	and_ = True
