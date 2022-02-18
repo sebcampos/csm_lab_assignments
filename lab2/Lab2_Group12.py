@@ -26,6 +26,15 @@ you_lose = """
 """
 
 
+goodbye = """
+   ___              _ _               ___  __  
+  / __|___  ___  __| | |__ _  _ ___  ( _ ) \ \ 
+ | (_ / _ \/ _ \/ _` | '_ \ || / -_) / _ \  | |
+  \___\___/\___/\__,_|_.__/\_, \___| \___/  | |
+                           |__/            /_/
+"""
+
+
 #function to get a guessing_range
 
 
@@ -48,10 +57,13 @@ class Lab2:
 		self.try_again_options = ["y", "n"]		
 
 	def log(self, message: str) -> None:
-		with open("lab2.log", "a") as f:
+		with open("errors.log", "a") as f:
 			f.write(f"{datetime.datetime.now()}:\n"+message+"\n")
 
 			
+	def log_score(self, name):
+		with open("gamescores", "a") as f:
+			f.write(f"\n{name} {self.score}\n")
 	def clean_inputs(self, user_input: str) -> bool:
 		try:
 			int(user_input)
@@ -100,9 +112,9 @@ if __name__ == "__main__":
 	while game.game_running:
 		if game.game_over == True:
 			print(you_win)
-			user_input = input(f"Game Over you win!\nScore: {game.score}\nPlay again?(Y/N)")
+			user_input = input(f"Game Over you win!\nScore: {game.score}\nPlay again?(Y/N)\n")
 			while user_input.lower() not in game.try_again_options:
-				user_input = input(f"Input must be Y or N, Play again?(Y/N)")
+				user_input = input(f"Input must be Y or N, Play again?(Y/N)\n")
 			if user_input.lower() == "y":
 				game.restart()
 			elif user_input.lower() == "n":
@@ -114,7 +126,7 @@ if __name__ == "__main__":
 			print(f"Lucky number was: {game.secret_number}\nScore: {game.score}")
 			user_input = input("Game over, max guesses reached, Play again?(Y/N):\n")
 			while user_input.lower() not in game.try_again_options:
-				user_input = input("Game over, max guesses reached, Play again?(Y/N)")
+				user_input = input("Game over, max guesses reached, Play again?(Y/N)\n")
 			if user_input.lower() == "y":
 				game.restart()
 			elif user_input.lower() == "n":
@@ -123,8 +135,10 @@ if __name__ == "__main__":
 				break
 		user_input = input("Please enter a number:\n")
 		while game.clean_inputs(user_input) != True:
-			user_input = input("Please enter an integer")
+			user_input = input("Please enter an integer:\n")
 		user_integer = int(user_input)
 		if game.compare_value(user_integer):
 			game.game_over = True
-			
+	
+	game.log_score(f"{datetime.datetime.now()} {input('Enter name: ')}")
+	print(goodbye)
