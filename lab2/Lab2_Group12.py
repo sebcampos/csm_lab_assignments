@@ -1,7 +1,29 @@
 import random
 import datetime
 
-welcome_message = "Welcome!"
+welcome_message = """
+ __      __   _                    _ 
+ \ \    / /__| |__ ___ _ __  ___  | |
+  \ \/\/ / -_) / _/ _ \ '  \/ -_) |_|
+   \_/\_/\___|_\__\___/_|_|_\___| (_)
+                                     
+"""
+
+
+you_win = """
+ __   __                 _        ___    _ 
+ \ \ / /__ _  _  __ __ _(_)_ _   (_) \  | |
+  \ V / _ \ || | \ V  V / | ' \   _ | | |_|
+   |_|\___/\_,_|  \_/\_/|_|_||_| (_)| | (_)
+                                   /_/    
+"""
+you_lose = """
+ __   __          _               _  __  _ 
+ \ \ / /__ _  _  | |___ ___ ___  (_)/ / | |
+  \ V / _ \ || | | / _ (_-</ -_)  _| |  |_|
+   |_|\___/\_,_| |_\___/__/\___| (_) |  (_)
+                                    \_\    
+"""
 
 
 #function to get a guessing_range
@@ -20,6 +42,7 @@ class Lab2:
 		self.num_guesses = 0
 		self.max_guesses = 5
 		self.game_over = False
+		self.game_running = True
 		self.score = 0
 		self.secret_number = random.randint(guessing_range[0], guessing_range[1])
 		self.try_again_options = ["y", "n"]		
@@ -66,34 +89,42 @@ class Lab2:
 
 
 if __name__ == "__main__":
+	print(welcome_message)
+	
 	#collect desired_range
 	#check that desired_range is acceptable
 	#while desired range is not acceptable ask for input again
 	
 	desired_range = [1, 40]
 	game = Lab2(desired_range)
-	while True:
+	while game.game_running:
 		if game.game_over == True:
+			print(you_win)
 			user_input = input(f"Game Over you win!\nScore: {game.score}\nPlay again?(Y/N)")
 			while user_input.lower() not in game.try_again_options:
 				user_input = input(f"Input must be Y or N, Play again?(Y/N)")
 			if user_input.lower() == "y":
 				game.restart()
 			elif user_input.lower() == "n":
-				print(f"Thanks for playing!\nScore: {game.score}:")
+				print(f"Thanks for playing!\nScore: {game.score}")
+				game.game_running = False
 				break
 		if game.max_guesses == game.num_guesses:
+			print(you_lose)
+			print(f"Lucky number was: {game.secret_number}\nScore: {game.score}")
 			user_input = input("Game over, max guesses reached, Play again?(Y/N):\n")
-			while user_input.lower() not in games.try_again_options:
+			while user_input.lower() not in game.try_again_options:
 				user_input = input("Game over, max guesses reached, Play again?(Y/N)")
 			if user_input.lower() == "y":
 				game.restart()
 			elif user_input.lower() == "n":
-				print("Thanks for playing!\nScore: {game.score}")
+				print(f"Thanks for playing!\nScore: {game.score}")
+				game.game_running = False
+				break
 		user_input = input("Please enter a number:\n")
 		while game.clean_inputs(user_input) != True:
 			user_input = input("Please enter an integer")
 		user_integer = int(user_input)
 		if game.compare_value(user_integer):
 			game.game_over = True
-		
+			
