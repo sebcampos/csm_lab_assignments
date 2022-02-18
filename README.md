@@ -1,4 +1,7 @@
 # labonegroup12_csm
+
+## Python version 3.9.5
+
 ## Homework for Lab 1 csm
 
 write a Python script to input a value representing an amount in cents and will output the same amount using the fewest number of coins. For example, if the input is 46, the output should be:
