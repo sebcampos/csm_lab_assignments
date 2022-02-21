@@ -35,10 +35,10 @@ goodbye = """
 """Static functions"""
 
 
-# function to get a guessing_range
+# todo Jacob Hanna function to get a guessing_range
 
 
-# function to check guessing_range
+# todo Jacob Hanna function to check guessing_range
 
 
 def log(message: str) -> None:
@@ -148,11 +148,11 @@ class Lab2:
 if __name__ == "__main__":
     print(welcome_message)  # welcome the user
 
-    # collect desired_range
-    # check that desired_range is acceptable
-    # while desired range is not acceptable ask for input again
+    # todo Jacob Hanna collect desired_range
+    # todo Jacob Hanna check that desired_range is acceptable
+    # todo Jacob Hanna while desired range is not acceptable ask for input again
 
-    desired_range = [1, 40]  # hard coded range todo replace with user defined range
+    desired_range = [1, 40]  # todo Jacob Hanna replace with user defined range 
     game = Lab2(desired_range)  # instance of the Lab2 class
     while game.game_running:  # main game loop
         if game.game_over:  # if game is set to game over player has one
