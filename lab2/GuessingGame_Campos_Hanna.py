@@ -1,3 +1,9 @@
+# CIS-117 Lab2
+# This Script runs a guessing game loop, keeps track of score between rounds, and documents scores
+# for user after they decide to close game in a txt file `gamescores` with date, username, and score
+# Group 12
+# Sebastian Campos todo jacob add your name here
+
 import random
 import datetime
 
@@ -35,10 +41,10 @@ goodbye = """
 """Static functions"""
 
 
-# todo Jacob Hanna function to get a guessing_range
+# todo Jacob Hanna define a function to get a guessing_range
 
 
-# todo Jacob Hanna function to check guessing_range
+# todo Jacob Hanna define a function to check guessing_range
 
 
 def log(message: str) -> None:
@@ -155,6 +161,14 @@ if __name__ == "__main__":
     desired_range = [1, 40]  # todo Jacob Hanna replace with user defined range 
     game = Lab2(desired_range)  # instance of the Lab2 class
     while game.game_running:  # main game loop
+
+        user_input = input("Please enter a number:\n")  # take user guess at secret number
+        while not clean_inputs(user_input):  # while user input can not be converted to int keep asking
+            user_input = input("Please enter an integer:\n")
+        user_integer = int(user_input)
+        if game.compare_value(user_integer):  # compare user input to secret number
+            game.game_over = True
+
         if game.game_over:  # if game is set to game over player has one
             print(you_win)
             # loop to check if user wants to play again
@@ -166,7 +180,7 @@ if __name__ == "__main__":
             elif user_input.lower() == "n":
                 print(f"Thanks for playing!\nScore: {game.score}")
                 game.game_running = False
-                break
+
         if game.max_guesses == game.num_guesses:  # user has reached max amount of tried and lost
             print(you_lose)
             print(f"Lucky number was: {game.secret_number}\nScore: {game.score}")
@@ -179,13 +193,6 @@ if __name__ == "__main__":
             elif user_input.lower() == "n":
                 print(f"Thanks for playing!\nScore: {game.score}")
                 game.game_running = False
-                break
-        user_input = input("Please enter a number:\n") # take user guess at secret number
-        while not clean_inputs(user_input): # while user input can not be converted to int keep asking
-            user_input = input("Please enter an integer:\n")
-        user_integer = int(user_input)
-        if game.compare_value(user_integer): # compare user input to secret number
-            game.game_over = True
 
-    game.log_score(f"{datetime.datetime.now()} {input('Enter name: ')}") # log users score
-    print(goodbye) # goodbye !
+    game.log_score(f"{datetime.datetime.now()} {input('Enter name: ')}")  # log users score
+    print(goodbye)  # goodbye !
