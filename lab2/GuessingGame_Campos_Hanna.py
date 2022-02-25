@@ -1,3 +1,8 @@
+# CIS-117 Lab2
+# Write a description of your program here
+# Group 12#
+# Jacob Hanna Sebastian Campos
+
 import random
 
 my_number = 1
