@@ -1,4 +1,4 @@
-# labonegroup12 CSM
+# CSM Labs
 
 ## Python version 3.9.5
 
