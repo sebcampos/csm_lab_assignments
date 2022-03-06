@@ -1,5 +1,6 @@
 import unittest
 import converters
+import find_conversion_rates
 
 c = converters.Converter()
 
@@ -25,6 +26,9 @@ class TestUtils(unittest.TestCase):
 
     def test_reverse_conversion_yuan(self):
         self.assertEqual(c.convert("Chinese Yuan Renminbi", 15, reverse=True), 94.79)
+
+    def test_api_query(self):
+        self.assertTrue(find_conversion_rates.query_api("MXN").status_code, 200)
 
 
 if __name__ == '__main__':
