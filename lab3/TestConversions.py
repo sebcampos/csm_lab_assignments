@@ -7,7 +7,7 @@ c = converters.Converter()
 
 class TestUtils(unittest.TestCase):
     """
-    This class tests our conversion functions using pythons unittest module
+    This class tests our conversion functions and api query using pythons unittest module
     """
     def test_yuan_conversion(self):
         self.assertEqual(c.convert("Chinese Yuan Renminbi", 15), 2.37)
