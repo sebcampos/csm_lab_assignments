@@ -1,9 +1,13 @@
-# Chinese dollars, Mexican dollars, British dollars, Canadian dollars, Russian dollars, Spanish dollars
+# CIS-117 Lab3
+# This module contains the Converter class which provides functions to convert currency from USD to
+# CNY, MXN, GBP, CAD, RUB, and EUR
+# Group#
+# Dillon Anawalt and Sebastian Campos
 
 # conversions taken from https://www.xe.com/currencyconverter/convert/
 # conversion api https://free.currconv.com/api/v7/
 
-import find_conversion_rates
+import FindConversionRates
 
 
 class Converter:
@@ -18,14 +22,14 @@ class Converter:
             "Chinese Yuan Renminbi": [0.158252, "¥", "CNY"],
             "Mexican Peso": [0.0477181, "$", "MXN"],
             "British Pound": [1.32300, "£", "GBP"],
-            "Canadian Dollar": [0.785367,  "$", "CAD"],
-            "Russian Rubles": [0.00816314,  "₽", "RUB"],
+            "Canadian Dollar": [0.785367, "$", "CAD"],
+            "Russian Rubles": [0.00816314, "₽", "RUB"],
             "Spanish Euro": [1.09431, "€", "EUR"]
         }
         self.conversion_rates_api_data = None
         try:
-            self.conversion_rates_api_data = find_conversion_rates.ConversionRates().conversion_data
-        except Exception as e:
+            self.conversion_rates_api_data = FindConversionRates.ConversionRates().conversion_data
+        except:
             print("Could Not query API, using hardcoded Values")
 
     def convert(self, currency: str, value: float, reverse: bool = False) -> float:

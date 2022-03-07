@@ -1,3 +1,8 @@
+# CIS-117 Lab3
+# Write a description of your module here
+# Group#
+# Your names here Dillon Anawalt and Sebastian Campos
+
 # Prologue:
 """ CIS-117 Lab3
  This activity is about building a module using functions which converts currencies to dollars.
@@ -13,4 +18,8 @@ vice-versa!! '''
 '''Dollar value fluctuates over time so for all intents and purposes, we will keep the dollar value the way we 
 discovered out of convenience '''
 
+import Converters
 
+c = Converters.Converter()
+
+print(c.convert("Chinese Yuan Renminbi", 89))

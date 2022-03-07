@@ -1,3 +1,10 @@
+# CIS-117 Lab3
+# This Module Contains the ConversionRates class and related functions which
+# query the free.currconv api to collect and save conversion rates as an
+# attribute of the class
+# Group#
+# Dillon Anawalt and Sebastian Campos
+
 import requests
 
 
