@@ -6,7 +6,6 @@
 
 # conversions taken from https://www.xe.com/currencyconverter/convert/
 # conversion api https://free.currconv.com/api/v7/
-
 import FindConversionRates
 
 
@@ -62,3 +61,10 @@ class Converter:
             return float(f"{conversion:.2f}")
         conversion = value * self.conversion_rates_api_data[currency]["conversion"]
         return float(f"{conversion:.2f}")
+
+
+if __name__ == "__main__":
+    print("Testing Conversion Methods")
+    with open("TestConversions.py", "r") as f:
+        string = f.read()
+    exec(string)
