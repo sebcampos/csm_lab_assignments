@@ -8,6 +8,7 @@
 # conversion api https://free.currconv.com/api/v7/
 import FindConversionRates
 from json.decoder import JSONDecodeError
+import os
 
 
 class Converter:
@@ -59,8 +60,9 @@ class Converter:
         try:
             self.conversion_values = FindConversionRates.ConversionRates().conversion_data
         except JSONDecodeError:
-            print("[SERVER UNAVAILABLE] Could Not query API, using hardcoded Values")
+            pass
 
+    # todo refactor/expand this method
     def convert(self, currency: str, value: float, reverse: bool = False) -> float:
         """
         This method uses `currency` to find the american dollar value in the `conversion_values` attribute
@@ -78,8 +80,6 @@ class Converter:
         return float(f"{conversion:.2f}")
 
 
-if __name__ == "__main__":
-    print("Testing Conversion Methods")
-    with open("TestConversions.py", "r") as f:
-        string = f.read()
-    exec(string)
+if __name__ == "__main__":  # if run as top module, running testing suite.
+    print("[Testing Conversion Methods]\n\n")
+    os.system("python TestConversions.py")
