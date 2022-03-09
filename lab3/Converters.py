@@ -1,12 +1,13 @@
 # CIS-117 Lab3
 # This module contains the Converter class which provides functions to convert currency from USD to
 # CNY, MXN, GBP, CAD, RUB, and EUR
-# Group#
+# Group 1, Project 3
 # Dillon Anawalt and Sebastian Campos
 
 # conversions taken from https://www.xe.com/currencyconverter/convert/
 # conversion api https://free.currconv.com/api/v7/
 import FindConversionRates
+from json.decoder import JSONDecodeError
 
 
 class Converter:
@@ -18,18 +19,47 @@ class Converter:
            defines the US dollar amount of 1 unit of the corresponding currency
         """
         self.conversion_values = {
-            "Chinese Yuan Renminbi": [0.158252, "¥", "CNY"],
-            "Mexican Peso": [0.0477181, "$", "MXN"],
-            "British Pound": [1.32300, "£", "GBP"],
-            "Canadian Dollar": [0.785367, "$", "CAD"],
-            "Russian Rubles": [0.00816314, "₽", "RUB"],
-            "Spanish Euro": [1.09431, "€", "EUR"]
+            "Chinese Yuan Renminbi":
+                {
+                    "conversion": 0.158252,
+                    "symbol": "¥",
+                    "code": "CNY"
+                },
+            "Mexican Peso":
+                {
+                    "conversion": 0.0477181,
+                    "symbol": "$",
+                    "code": "MXN"
+                },
+            "British Pound":
+                {
+                    "conversion": 1.32300,
+                    "symbol": "£",
+                    "code": "GBP"
+                },
+            "Canadian Dollar":
+                {
+                    "conversion": 0.785367,
+                    "symbol": "$",
+                    "code": "CAD"
+                },
+            "Russian Rubles":
+                {
+                    "conversion": 0.00816314,
+                    "symbol": "₽",
+                    "code": "RUB"
+                },
+            "Spanish Euro":
+                {
+                    "conversion": 1.09431,
+                    "symbol": "€",
+                    "code": "EUR"
+                }
         }
-        self.conversion_rates_api_data = None
         try:
-            self.conversion_rates_api_data = FindConversionRates.ConversionRates().conversion_data
-        except:
-            print("Could Not query API, using hardcoded Values")
+            self.conversion_values = FindConversionRates.ConversionRates().conversion_data
+        except JSONDecodeError:
+            print("[SERVER UNAVAILABLE] Could Not query API, using hardcoded Values")
 
     def convert(self, currency: str, value: float, reverse: bool = False) -> float:
         """
@@ -42,24 +72,9 @@ class Converter:
         :return: float of conversion representation
         """
         if reverse:
-            conversion = value / self.conversion_values[currency][0]
+            conversion = value / self.conversion_values[currency]["conversion"]
             return float(f"{conversion:.2f}")
-        conversion = value * self.conversion_values[currency][0]
-        return float(f"{conversion:.2f}")
-
-    def convert_api(self, currency: str, value: float, reverse: bool = False):
-        """
-        This method is identical to the convert method but uses the api conversion values instead of the
-        hard coded values by referencing the `conversion_rates_api_data`  attribute
-        :param currency: currency to be converted as a string
-        :param value: value to be converted as a float
-        :param reverse: boolean for reverse operation default set to False
-        :return: float of conversion representation
-        """
-        if reverse:
-            conversion = value / self.conversion_rates_api_data[currency]["conversion"]
-            return float(f"{conversion:.2f}")
-        conversion = value * self.conversion_rates_api_data[currency]["conversion"]
+        conversion = value * self.conversion_values[currency]["conversion"]
         return float(f"{conversion:.2f}")
 
 

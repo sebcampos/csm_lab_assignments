@@ -2,13 +2,14 @@
 # This Module Contains the ConversionRates class and related functions which
 # query the free.currconv api to collect and save conversion rates as an
 # attribute of the class
-# Group#
+# Group 1, Project 3
 # Dillon Anawalt and Sebastian Campos
 
 import requests
+from requests import Response
 
 
-def query_api(currency_code: str) -> requests.Response:
+def query_api(currency_code: str) -> Response:
     """
     This method takes in a valid currency code as a string and queries an api for the value of
     :param currency_code: str representation of currency code
@@ -19,7 +20,7 @@ def query_api(currency_code: str) -> requests.Response:
     return r
 
 
-def parse_api_response(r: requests.Response) -> float:
+def parse_api_response(r: Response) -> float:
     """
     This method takes in the Response object and extracts the conversion value
     :param r: Response object from the `query_api` method
@@ -76,4 +77,3 @@ class ConversionRates:
             api_response = query_api(code)
             conversion = parse_api_response(api_response)
             self.conversion_data[key]["conversion"] = conversion
-
