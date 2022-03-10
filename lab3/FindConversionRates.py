@@ -34,9 +34,9 @@ class ConversionRates:
     def __init__(self) -> None:
         """
         class ConversionRates:
-            This class has the hardcoded names, symbols and currency codes as a python dictionary
-            saved in the conversion_data attribute. On init the method queries an API using each item's `code`
-            value. The API returns the conversion rate and then it is saved into the dictionary as the key `conversion`
+            This class contains names, currency symbols, and currency codes as an attribute
+            called conversion_data . On init the method queries an API for each value to collect the conversion
+            amount
         Attributes:
             :conversion_data a python dictionary holding conversion data
         """

@@ -18,6 +18,8 @@ class Converter:
         Attributes:
           :conversion_values dictionary which
            defines the US dollar amount of 1 unit of the corresponding currency
+        :param test boolean to test conversion functions
+        :return: None
         """
         self.conversion_values = {
             "Chinese Yuan Renminbi":
