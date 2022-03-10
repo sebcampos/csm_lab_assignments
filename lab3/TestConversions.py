@@ -10,7 +10,7 @@ import FindConversionRates
 import sys
 import logging
 
-c = Converters.Converter()
+c = Converters.Converter(test=True)
 
 
 class ConversionTests(unittest.TestCase):
@@ -54,7 +54,7 @@ class ConversionTests(unittest.TestCase):
         log.debug(" [PASSED] 15 equals 94.79")
 
     def test_api_query(self):
-        log = logging.getLogger("ConversionTests.test_canadian_dollar_conversion")
+        log = logging.getLogger("ConversionTests.test_api_query")
         self.assertEqual(FindConversionRates.query_api("MXN").status_code, 200,
                          "[FAILED] API did not respond with 200 response code")
         log.debug("[PASSED] Request to API responded with 200 response code")

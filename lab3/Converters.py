@@ -12,7 +12,7 @@ import os
 
 
 class Converter:
-    def __init__(self) -> None:
+    def __init__(self, test: bool = False) -> None:
         """
         Converter Class initialized with conversion rates saved as attribute conversion values
         Attributes:
@@ -57,10 +57,11 @@ class Converter:
                     "code": "EUR"
                 }
         }
-        try:
-            self.conversion_values = FindConversionRates.ConversionRates().conversion_data
-        except JSONDecodeError:
-            pass
+        if not test:
+            try:
+                self.conversion_values = FindConversionRates.ConversionRates().conversion_data
+            except JSONDecodeError:
+                pass
 
     # todo refactor/expand this method
     def convert(self, currency: str, value: float, reverse: bool = False) -> float:
@@ -80,6 +81,6 @@ class Converter:
         return float(f"{conversion:.2f}")
 
 
-if __name__ == "__main__":  # if run as top module, running testing suite.
+if __name__ == "__main__":  # if run as top module, will run testing suite with converter arg test set to True.
     print("[Testing Conversion Methods]\n\n")
     os.system("python TestConversions.py")
