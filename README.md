@@ -1,5 +1,5 @@
 # CSM Labs
-dkdkdkdkdkd
+
 ## Python version 3.9.5
 
 ## Homework for Lab 1 csm
