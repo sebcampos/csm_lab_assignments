@@ -11,13 +11,12 @@ import os
 
 
 class Converter:
-    def __init__(self, test: bool = False) -> None:
+    def __init__(self) -> None:
         """
         Converter Class initialized with conversion rates saved as attribute conversion values
         Attributes:
           :conversion_values dictionary which
            defines the US dollar amount of 1 unit of the corresponding currency
-        :param test boolean to test conversion functions
         :return: None
         """
         self.conversion_values = {
@@ -76,7 +75,7 @@ class Converter:
         conversion = value * self.conversion_values[currency]["conversion"]
         return float(f"{conversion:.2f}")
 
-    def convert_yuan(self, value: float) -> str:
+    def convert_yuan(self, value: float) -> tuple:
         conversion = self.convert("Chinese Yuan Renminbi", value)
         code = self.conversion_values["Chinese Yuan Renminbi"]["code"]
         symbol = self.conversion_values["Chinese Yuan Renminbi"]["symbol"]
