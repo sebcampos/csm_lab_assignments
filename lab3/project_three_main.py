@@ -18,3 +18,8 @@ import Converters
 c = Converters.Converter()
 
 print(c.convert("Chinese Yuan Renminbi", 89))
+
+
+conversion, code, symbol = c.convert_yuan(19)
+
+print(conversion, code, symbol)

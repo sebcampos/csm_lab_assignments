@@ -6,8 +6,7 @@
 
 # conversions taken from https://www.xe.com/currencyconverter/convert/
 # conversion api https://free.currconv.com/api/v7/
-import FindConversionRates
-from json.decoder import JSONDecodeError
+
 import os
 
 
@@ -59,11 +58,6 @@ class Converter:
                     "code": "EUR"
                 }
         }
-        if not test:
-            try:
-                self.conversion_values = FindConversionRates.ConversionRates().conversion_data
-            except JSONDecodeError:
-                pass
 
     # todo refactor/expand this method
     def convert(self, currency: str, value: float, reverse: bool = False) -> float:
@@ -81,6 +75,12 @@ class Converter:
             return float(f"{conversion:.2f}")
         conversion = value * self.conversion_values[currency]["conversion"]
         return float(f"{conversion:.2f}")
+
+    def convert_yuan(self, value: float) -> str:
+        conversion = self.convert("Chinese Yuan Renminbi", value)
+        code = self.conversion_values["Chinese Yuan Renminbi"]["code"]
+        symbol = self.conversion_values["Chinese Yuan Renminbi"]["symbol"]
+        return conversion, code, symbol
 
 
 if __name__ == "__main__":  # if run as top module, will run testing suite with converter arg test set to True.

@@ -6,11 +6,10 @@
 
 import unittest
 import Converters
-import FindConversionRates
 import sys
 import logging
 
-c = Converters.Converter(test=True)
+c = Converters.Converter()
 
 
 class ConversionTests(unittest.TestCase):
@@ -53,12 +52,6 @@ class ConversionTests(unittest.TestCase):
         self.assertEqual(c.convert("Chinese Yuan Renminbi", 15, reverse=True), 94.79)
         log.debug(" [PASSED] 15 equals 94.79")
 
-    def test_api_query(self):
-        log = logging.getLogger("ConversionTests.test_api_query")
-        self.assertEqual(FindConversionRates.query_api("MXN").status_code, 200,
-                         "[FAILED] API did not respond with 200 response code")
-        log.debug("[PASSED] Request to API responded with 200 response code")
-
 
 if __name__ == '__main__':
     logging.basicConfig(stream=sys.stderr)
@@ -69,5 +62,4 @@ if __name__ == '__main__':
     logging.getLogger("ConversionTests.test_rubles_conversion").setLevel(logging.DEBUG)
     logging.getLogger("ConversionTests.test_spanish_euro_conversion").setLevel(logging.DEBUG)
     logging.getLogger("ConversionTests.test_reverse_conversion_yuan").setLevel(logging.DEBUG)
-    logging.getLogger("ConversionTests.test_api_query").setLevel(logging.DEBUG)
     unittest.main()
