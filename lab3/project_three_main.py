@@ -15,11 +15,25 @@
 
 import Converters
 
-c = Converters.Converter()
+Converter = Converters.Converter()
 
-print(c.convert("Chinese Yuan Renminbi", 89))
+options = [str(option[0]) for option in enumerate(Converter.conversion_values)]
+
+for number, option in enumerate(Converter.conversion_values):
+    print(f"{number} {option}")
+
+user_choice = int(input("Please select a conversion value: "))
+
+while user_choice not in options:
+    user_choice = int(input("Please select a valid input : "))
+
+chosen_value = int(user_choice)
+
+if chosen_value == _ :
 
 
-conversion, code, symbol = c.convert_yuan(19)
 
-print(conversion, code, symbol)
+
+
+
+
