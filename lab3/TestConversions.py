@@ -6,10 +6,11 @@
 
 import unittest
 import Converters
+from FindConversionRates import query_api
 import sys
 import logging
 
-c = Converters.Converter()
+c = Converters.Converter(test=True)
 
 
 class ConversionTests(unittest.TestCase):
@@ -19,38 +20,43 @@ class ConversionTests(unittest.TestCase):
 
     def test_yuan_conversion(self):
         log = logging.getLogger("ConversionTests.test_yuan_conversion")
-        self.assertEqual(c.convert("Chinese Yuan Renminbi", 15), 2.37)
+        self.assertEqual(c.convert_yuan(15)[0], 2.37)
         log.debug(" [PASSED] 15 equals 2.37")
 
     def test_peso_conversion(self):
         log = logging.getLogger("ConversionTests.test_peso_conversion")
-        self.assertEqual(c.convert("Mexican Peso", 43), 2.05)
+        self.assertEqual(c.convert_peso(43)[0], 2.05)
         log.debug(" [PASSED] 43 equals 2.05")
 
     def test_pound_conversion(self):
         log = logging.getLogger("ConversionTests.test_pound_conversion")
-        self.assertEqual(c.convert("British Pound", 79.01), 104.53)
+        self.assertEqual(c.convert_pound(79.01)[0], 104.53)
         log.debug(" [PASSED] 79.01 equals 104.53")
 
     def test_canadian_dollar_conversion(self):
         log = logging.getLogger("ConversionTests.test_canadian_dollar_conversion")
-        self.assertEqual(c.convert("Canadian Dollar", 400), 314.15)
+        self.assertEqual(c.convert_canadianDollar(400)[0], 314.15)
         log.debug(" [PASSED] 400 equals 314.15")
 
     def test_rubles_conversion(self):
         log = logging.getLogger("ConversionTests.test_rubles_conversion")
-        self.assertEqual(c.convert("Russian Rubles", 7000), 57.14)
+        self.assertEqual(c.convert_ruble(7000)[0], 57.14)
         log.debug(" [PASSED] 7000 equals 57.14")
 
     def test_spanish_euro_conversion(self):
         log = logging.getLogger("ConversionTests.test_spanish_euro_conversion")
-        self.assertEqual(c.convert("Spanish Euro", 19.90), 21.78)
+        self.assertEqual(c.convert_euro(19.90)[0], 21.78)
         log.debug(" [PASSED] 19.90 equals 21.78")
 
     def test_reverse_conversion_yuan(self):
         log = logging.getLogger("ConversionTests.test_reverse_conversion_yuan")
-        self.assertEqual(c.convert("Chinese Yuan Renminbi", 15, reverse=True), 94.79)
+        self.assertEqual(c.convert_yuan(15, reverse=True)[0], 94.79)
         log.debug(" [PASSED] 15 equals 94.79")
+
+    def test_api_query(self):
+        log = logging.getLogger("ConversionTests.test_api_query")
+        self.assertEqual(query_api("MXN").status_code, 200)
+        log.debug(" [PASSED] API returned 200 response code")
 
 
 if __name__ == '__main__':
@@ -62,4 +68,5 @@ if __name__ == '__main__':
     logging.getLogger("ConversionTests.test_rubles_conversion").setLevel(logging.DEBUG)
     logging.getLogger("ConversionTests.test_spanish_euro_conversion").setLevel(logging.DEBUG)
     logging.getLogger("ConversionTests.test_reverse_conversion_yuan").setLevel(logging.DEBUG)
+    logging.getLogger("ConversionTests.test_api_query").setLevel(logging.DEBUG)
     unittest.main()

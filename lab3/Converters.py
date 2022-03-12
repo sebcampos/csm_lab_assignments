@@ -11,7 +11,7 @@ import os
 
 
 class Converter:
-    def __init__(self) -> None:
+    def __init__(self, test=False) -> None:
         """
         Converter Class initialized with conversion rates saved as attribute conversion values
         Attributes:
@@ -57,8 +57,13 @@ class Converter:
                     "code": "EUR"
                 }
         }
+        if not test:
+            try:
+                import FindConversionRates
+                self.conversion_values = FindConversionRates.ConversionRates().conversion_data
+            except:
+                pass
 
-    # todo refactor/expand this method
     def convert(self, currency: str, value: float, reverse: bool = False) -> float:
         """
         This method uses `currency` to find the american dollar value in the `conversion_values` attribute
@@ -75,10 +80,40 @@ class Converter:
         conversion = value * self.conversion_values[currency]["conversion"]
         return float(f"{conversion:.2f}")
 
-    def convert_yuan(self, value: float) -> tuple:
-        conversion = self.convert("Chinese Yuan Renminbi", value)
+    def convert_yuan(self, value: float, reverse=False) -> tuple:
+        conversion = self.convert("Chinese Yuan Renminbi", value, reverse)
         code = self.conversion_values["Chinese Yuan Renminbi"]["code"]
         symbol = self.conversion_values["Chinese Yuan Renminbi"]["symbol"]
+        return conversion, code, symbol
+
+    def convert_peso(self, value: float, reverse=False) -> tuple:
+        conversion = self.convert("Mexican Peso", value, reverse)
+        code = self.conversion_values["Mexican Peso"]["code"]
+        symbol = self.conversion_values["Mexican Peso"]["symbol"]
+        return conversion, code, symbol
+
+    def convert_ruble(self, value: float, reverse=False) -> tuple:
+        conversion = self.convert("Russian Rubles", value, reverse)
+        code = self.conversion_values["Russian Rubles"]["code"]
+        symbol = self.conversion_values["Russian Rubles"]["symbol"]
+        return conversion, code, symbol
+
+    def convert_euro(self, value: float, reverse=False) -> tuple:
+        conversion = self.convert("Spanish Euro", value, reverse)
+        code = self.conversion_values["Spanish Euro"]["code"]
+        symbol = self.conversion_values["Spanish Euro"]["symbol"]
+        return conversion, code, symbol
+
+    def convert_pound(self, value: float, reverse=False) -> tuple:
+        conversion = self.convert("British Pound", value, reverse)
+        code = self.conversion_values["British Pound"]["code"]
+        symbol = self.conversion_values["British Pound"]["symbol"]
+        return conversion, code, symbol
+
+    def convert_canadianDollar(self, value: float, reverse=False) -> tuple:
+        conversion = self.convert("Canadian Dollar", value, reverse)
+        code = self.conversion_values["Canadian Dollar"]["code"]
+        symbol = self.conversion_values["Canadian Dollar"]["symbol"]
         return conversion, code, symbol
 
 

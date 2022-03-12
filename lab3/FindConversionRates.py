@@ -77,3 +77,4 @@ class ConversionRates:
             api_response = query_api(code)
             conversion = parse_api_response(api_response)
             self.conversion_data[key]["conversion"] = conversion
+        print("Using API provided Conversion Rates")
