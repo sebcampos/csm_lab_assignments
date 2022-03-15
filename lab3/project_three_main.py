@@ -31,36 +31,36 @@ chosen_value = int(user_choice)
 chosen_amount = float(input("How much money?: "))
 if chosen_value == 0:
     conversion, code, symbol = Converter.convert_yuan(chosen_amount)
-    print(f'{chosen_amount} in Yuan {symbol}{conversion}')
+    print(f'{chosen_amount} in Yuan {symbol}{conversion} {code}')
     conversion, code, symbol = Converter.convert_yuan(chosen_amount, True)
-    print(f'{symbol}{chosen_amount} in Dollars {conversion}')
+    print(f'{symbol}{conversion} {code} in Dollars {chosen_amount}')
 elif chosen_value == 1:
     conversion, code, symbol = Converter.convert_peso(chosen_amount)
-    print(f'{chosen_amount} in Peso {symbol}{conversion}')
+    print(f'{chosen_amount} in Peso {symbol}{conversion} {code}')
     conversion, code, symbol = Converter.convert_peso(chosen_amount, True)
-    print(f'{symbol}{chosen_amount} in Dollars {conversion}')
+    print(f'{symbol}{conversion} {code} in Dollars {chosen_amount}')
 elif chosen_value == 2:
     conversion, code, symbol = Converter.convert_pound(chosen_amount)
-    print(f'{chosen_amount} in Pound {symbol}{conversion}')
+    print(f'{chosen_amount} in Pound {symbol}{conversion} {code}')
     conversion, code, symbol = Converter.convert_pound(chosen_amount, True)
-    print(f'{symbol}{chosen_amount} in Dollars {conversion}')
+    print(f'{symbol}{conversion} {code} in Dollars {chosen_amount}')
 elif chosen_value == 3:
     conversion, code, symbol = Converter.convert_canadian_dollar(chosen_amount)
-    print(f'{chosen_amount} in Canadian Dollar {symbol}{conversion}')
+    print(f'{chosen_amount} in Canadian Dollar {symbol}{conversion}{code}')
     conversion, code, symbol = Converter.convert_canadian_dollar(chosen_amount, True)
-    print(f'{symbol}{chosen_amount} in Dollars {conversion}')
+    print(f'{symbol}{conversion} {code} in Dollars {chosen_amount}')
 
 elif chosen_value == 4:
     conversion, code, symbol = Converter.convert_ruble(chosen_amount)
-    print(f'{chosen_amount} in Ruble {symbol}{conversion}')
+    print(f'{chosen_amount} in Ruble {symbol}{conversion} {code}')
     conversion, code, symbol = Converter.convert_ruble(chosen_amount, True)
-    print(f'{symbol}{chosen_amount} in Dollars {conversion}')
+    print(f'{symbol}{conversion} {code} in Dollars {chosen_amount}')
 
 elif chosen_value == 5:
     conversion, code, symbol = Converter.convert_euro(chosen_amount)
-    print(f'{chosen_amount} in Euro {symbol}{conversion}')
+    print(f'{chosen_amount} in Euro {symbol}{conversion} {code}')
     conversion, code, symbol = Converter.convert_euro(chosen_amount, True)
-    print(f'{symbol}{chosen_amount} in Dollars {conversion}')
+    print(f'{symbol}{conversion} {code} in Dollars {chosen_amount}')
 
 
 
