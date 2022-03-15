@@ -45,9 +45,9 @@ elif chosen_value == 2:
     conversion, code, symbol = Converter.convert_pound(chosen_amount, True)
     print(f'{symbol}{chosen_amount} in Dollars {conversion}')
 elif chosen_value == 3:
-    conversion, code, symbol = Converter.convert_canadianDollar(chosen_amount)
+    conversion, code, symbol = Converter.convert_canadian_dollar(chosen_amount)
     print(f'{chosen_amount} in Canadian Dollar {symbol}{conversion}')
-    conversion, code, symbol = Converter.convert_canadianDollar(chosen_amount, True)
+    conversion, code, symbol = Converter.convert_canadian_dollar(chosen_amount, True)
     print(f'{symbol}{chosen_amount} in Dollars {conversion}')
 
 elif chosen_value == 4:

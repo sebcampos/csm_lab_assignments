@@ -35,7 +35,7 @@ class ConversionTests(unittest.TestCase):
 
     def test_canadian_dollar_conversion(self):
         log = logging.getLogger("ConversionTests.test_canadian_dollar_conversion")
-        self.assertEqual(c.convert_canadianDollar(400)[0], 314.15)
+        self.assertEqual(c.convert_canadian_dollar(400)[0], 314.15)
         log.debug(" [PASSED] 400 equals 314.15")
 
     def test_rubles_conversion(self):

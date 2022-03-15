@@ -110,7 +110,7 @@ class Converter:
         symbol = self.conversion_values["British Pound"]["symbol"]
         return conversion, code, symbol
 
-    def convert_canadianDollar(self, value: float, reverse=False) -> tuple:
+    def convert_canadian_dollar(self, value: float, reverse=False) -> tuple:
         conversion = self.convert("Canadian Dollar", value, reverse)
         code = self.conversion_values["Canadian Dollar"]["code"]
         symbol = self.conversion_values["Canadian Dollar"]["symbol"]
