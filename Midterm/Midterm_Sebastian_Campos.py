@@ -27,7 +27,7 @@ def unique_word_count_ignore_case(text: str) -> int:
     for char in text:
         if not char.isalpha() and char != " ":  # replace all punctuation with empty string
             text = text.replace(char, "")
-    return len(set([i.lower() for i in text.split()]))
+    return len(set([i.lower().strip() for i in text.split()]))
 
 
 def word_frequency_ignore_case(text: str) -> dict:
@@ -67,7 +67,7 @@ def print_frequencies(count_dict: dict, n: int) -> None:
             column = 1
             print(f"{word}{formatting_spaces}: {count}", end=10*" ")
         elif count > n and column == 1:
-            formatting_spaces = (10 - len(word)) * " "
+            formatting_spaces = (15 - len(word)) * " "
             column = 0
             print(f"{word}{formatting_spaces}: {count}")
         elif count <= n:
