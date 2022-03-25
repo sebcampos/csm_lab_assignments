@@ -87,7 +87,11 @@ if __name__ == "__main__":
     Music is all about repetition and patterns. If you didn’t have repetition in music, 
     it would all just be noise.
     """
-    print("Total word count", total_word_count(testing_data))
-    print("Total unique word count", unique_word_count_ignore_case(testing_data), end="\n\n")
-    print_frequencies(word_frequency_ignore_case(testing_data), 2)
+    print("Total word count", total_word_count(testing_data))  # print the return to total word count
+
+    print("Total unique word count", unique_word_count_ignore_case(testing_data), end="\n\n")  # print the return of
+    # unique word count
+
+    print_frequencies(word_frequency_ignore_case(testing_data), 2)  # use print frequencies handing it the return of
+    # word_frequency_ignore_case (a python dictionary) and the integer of words frequencies
 
