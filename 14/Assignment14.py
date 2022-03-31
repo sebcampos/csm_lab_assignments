@@ -1,7 +1,8 @@
 # Homework 14 Assignment
-# Group#
-# Your names
-# Date
+# Sebastian Campos
+# 2022-03-28
+
+
 from html.parser import HTMLParser
 from urllib.request import urlopen
 import datetime
@@ -75,6 +76,6 @@ if __name__ == "__main__":
 
     parser = MyHTMLParser()
     parser.feed(html_page)
-    # nothing happens because you haven't yet implemented the handler methods
+
     parser.frequency(3)
     parser.dump_data("test.txt")
