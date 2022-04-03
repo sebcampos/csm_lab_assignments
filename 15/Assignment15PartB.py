@@ -4,52 +4,35 @@
 
 import tkinter as tk
 import datetime
-from Assignment15PartA import MyHTMLParser
+import os
+from Assignment15PartA import main as email_scraper
 
 
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.parser = MyHTMLParser()
-        self.tree = {"root": []}
+        self.geometry("300x150")
+        self.title("Email Scraper")
 
-    def __str__(self):
-        string = "App Tree\n\nRoot:\n"
-        level = 1
-        for dictionary in self.tree["root"]:
-            string += ('\t'*level)+f"{dictionary['name']}"
-            size_of_next_element = len(self.tree['root'][dictionary])
-            while size_of_next_element != 0:
-                level += 1
-                string += ('\t'*level)+f"{}"
-
-
-    def __repr__(self):
-        return str(self)
-
-    def add_widget(self, parent_name, name, widget):
-        exists = self.add_to_tree_and_check_if_exists(parent_name, name, widget)
-        if exists:
-            self.tree[name][-1].pack()
-            return
-        widget.pack()
-
-    def get_root_widget_names(self):
-        return [name for name, _ in self.tree["root"]]
-
-    def add_to_tree_and_check_if_exists(self, parent_name, name, widget):
-        if parent_name in self.get_root_widget_names():
-            self.tree["root"][parent_name].append({f"{name}": widget})
-            return True
-        self.tree["root"][parent_name] = [{f"{name}": widget}]
-        return False
+    def scrape(self, entry):
+        url = entry.get()
+        print(url)
+        emails = email_scraper(url)
+        print(emails)
 
     def build(self):
-        self.add_widget("input box", tk.Entry(self))
+        frame = tk.Frame(self, bg="yellow", bd=12)
+        frame.pack()
+        entry = tk.Entry(frame)
+        entry.pack()
+        btn = tk.Button(
+            self,
+            text="Collect emails",
+            command=lambda txt=entry: self.scrape(entry)
+        )
+        btn.pack()
+        return self
 
 
 if __name__ == "__main__":
-    app = App()
-    app.build()
-    print(app)
-    app.mainloop()
+    App().build().mainloop()
