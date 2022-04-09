@@ -67,7 +67,7 @@ class MyHTMLParser(HTMLParser):
                     self.links.append(value)
 
 
-def main(url: str) -> list:
+def main(url: str = None) -> list:
     """
     This is the main method. Using the MyHTMLParser and urlopen method it recieves the data from urlopen method
     and parses it saving all emails to an attribute in the MyHTMLParser called emails
