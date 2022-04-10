@@ -1,25 +1,12 @@
 # Homework 15 Assignment Part B
 # Sebastian Campos
 # 2022-03-28
-
+import _tkinter
 import tkinter as tk
-import turtle as t
+import random
+import time
 import re
 from Assignment15PartA import main as email_scraper
-
-
-def clean_url(url: str) -> str or bool:
-    """
-    This method verifies the url before being passed to the email_scraper method
-    :param url: a string representation of the url
-    :return: the validated url or a False flag to represent invalid url
-    """
-    if "https://" not in url:
-        url = "https://" + url
-
-    if re.search(r"https://.+\.[a-zA-Z]{3}", url):
-        return url
-    return False
 
 
 class App(tk.Tk):
@@ -42,16 +29,17 @@ class App(tk.Tk):
         self.eval('tk::PlaceWindow %s center' % self.winfo_pathname(self.winfo_id()))
         self.geometry('350x450+700+200')
         self.title("Email Scraper")
+
+        self.canvas = LavaLamp(
+            self
+        )
+
         self.frame_one = tk.Frame(
-            self,
-            bg="yellow",
-            bd=12
+            self.canvas,
         )
 
         self.frame_two = tk.Frame(
-            self,
-            bg='green',
-            bd=12
+            self.canvas,
         )
 
         self.emails_widget = EmailsWidget(
@@ -59,7 +47,8 @@ class App(tk.Tk):
         )
 
         self.entry = tk.Entry(
-            self.frame_one
+            self.frame_one,
+            width=15
         )
 
         self.btn = tk.Button(
@@ -68,17 +57,33 @@ class App(tk.Tk):
             command=lambda entry=self.entry: self.scrape(entry)
         )
 
-    def display_emails(self, emails: list) -> None:
+    @staticmethod
+    def clean_url(url: str) -> str or bool:
+        """
+        This method verifies the url before being passed to the email_scraper method
+        :param url: a string representation of the url
+        :return: the validated url or a False flag to represent invalid url
+        """
+        if "https://" not in url:
+            url = "https://" + url
+
+        if re.search(r"https://.+\.[a-zA-Z]{3}", url):
+            return url
+        return False
+
+    def display_emails(self, emails: list, url: str) -> None:
         """
         This method takes a list of emails as an argument add displays them on the
         App class's `emails_widget` attribute. It does a check to close the previous search before
         adding another
         :param emails: a list of emails to be displayed
+        :param url: the url which was scraped
         :return: void
         """
         if self.emails_widget.is_packed:
             self.emails_widget.remove()
-        self.emails_widget.add_emails_and_display(emails)
+        self.entry.delete(0, tk.END)
+        self.emails_widget.add_emails_and_display(emails, url)
 
     def scrape(self, entry):
         """
@@ -90,11 +95,11 @@ class App(tk.Tk):
         :return: void
         """
         url = entry.get()
-        valid_url = clean_url(url)
+        valid_url = self.clean_url(url)
         if valid_url:
             try:
                 emails = email_scraper(valid_url)
-                self.display_emails(emails)
+                self.display_emails(emails, valid_url)
             except Exception as e:
                 self.entry.delete(0, tk.END)
                 self.raise_operational_error(e)
@@ -126,10 +131,13 @@ class App(tk.Tk):
         defined by its attributes
         :return:  TK instance
         """
-        self.entry.pack()
+        self.canvas.build_blobs()
+        self.canvas.pack(expand=True, fill="both")
         self.frame_one.pack()
         self.frame_two.pack()
+        self.entry.pack()
         self.btn.pack()
+        self.emails_widget.pack()
         return self
 
 
@@ -158,22 +166,30 @@ class EmailsWidget(tk.Text):
     Attributes:
          is_packed: reflects whether the widget exists on the current App window
     """
-    def __init__(self, parent):
+
+    def __init__(self, parent, height=20, width=30):
         """
         This method creates a tkinter Text class adding an attribute and two methods
         :param parent: a tkinter widget to be defined as the parent of this widget
         """
-        super().__init__(parent)
+        super().__init__(parent, height=height, width=width)
+        self.config(state=tk.DISABLED)
         self.is_packed = False
 
-    def add_emails_and_display(self, emails: list) -> None:
+    def add_emails_and_display(self, emails: list, url: str) -> None:
         """
         This method receives the emails list and adds it to the Text/EmailsWidget  using the
         `insert` method then sets the is_packed attribute to True
+        :param url: the url of the emails
         :param emails:  a list of scraped emails
         :return: void
         """
+        emails = [url + ": "] + emails
+        if len(emails) == 1:
+            emails.append("No Emails Found at this url")
+        self.config(state=tk.NORMAL)
         self.insert(tk.END, "\n".join(emails))
+        self.config(state=tk.DISABLED)
         self.pack()
         self.is_packed = True
 
@@ -188,5 +204,76 @@ class EmailsWidget(tk.Text):
         self.is_packed = False
 
 
+class LavaLamp(tk.Canvas):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.blobs = []
+        self.blob_colors = [
+            "purple",
+            "red",
+            "green",
+            "blue"
+        ]
+
+    @staticmethod
+    def random_x():
+        return random.choice([i for i in range(0, 300)])
+
+    @staticmethod
+    def random_speed():
+        return random.choice(["fast", "slow"])
+
+    @staticmethod
+    def random_size():
+        return random.choice(["small", "large"])
+
+    def random_coordinates(self):
+        size = self.random_size()
+        x1 = self.random_x()
+        x2 = 500
+        y1 = x1 + 100
+        y2 = 400
+        random_color = random.choice(self.blob_colors)
+        speed = self.random_speed()
+        if size == "small":
+            y1 -= 50
+            y2 += 50
+        if speed == "slow":
+            speed = float("0." + str(random.randrange(1, 9)))
+        elif speed == "fast":
+            speed = random.randrange(1, 9)
+        return x1, x2, y1, y2, random_color, speed
+
+    def build_blobs(self):
+        for i in range(500):
+            x1, x2, y1, y2, random_color, speed = self.random_coordinates()
+            self.blobs.append(
+                Blob(self, x1, x2, y1, y2, random_color, speed)
+            )
+
+
+class Blob:
+    def __init__(self, canvas: LavaLamp, x1=0, x2=500, y1=100, y2=400, color='blue', velocity=1):
+        self.parent_canvas = canvas
+        self.max_y1 = 400
+        self.circle = canvas.create_oval(x1, x2, y1, y2, fill=color)
+        self.yv = -velocity
+
+    def vibe(self):
+        self.parent_canvas.move(self.circle, 0, self.yv)
+        coordinates = self.parent_canvas.coords(self.circle)
+        if coordinates[3] <= 0 or coordinates[1] > self.parent_canvas.winfo_height():
+            self.yv = -self.yv
+
+
 if __name__ == "__main__":
-    App().build().mainloop()
+    app = App()
+    app.build()
+    while True:
+        try:
+            for blob in app.canvas.blobs:
+                blob.vibe()
+            app.update()
+            time.sleep(0.01)
+        except _tkinter.TclError:
+            break
