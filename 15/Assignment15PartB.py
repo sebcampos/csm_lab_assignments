@@ -26,7 +26,7 @@ class App(tk.Tk):
         The TK class is initialized with a defined geometry, title, and position
         """
         super().__init__()
-        self.eval('tk::PlaceWindow %s center' % self.winfo_pathname(self.winfo_id()))
+        self.eval('tk::PlaceWindow . center')
         self.geometry('350x450+700+200')
         self.title("Email Scraper")
 
@@ -205,29 +205,60 @@ class EmailsWidget(tk.Text):
 
 
 class LavaLamp(tk.Canvas):
+    """
+    The LavaLamp class inherits from the Tkinter Canvas Class and is used to manage small different colored blobs
+    to float up and down the screen as a dynamic background for the app
+    """
     def __init__(self, parent):
+        """
+        This constructor method takes the parent widget or TK widget then calls the Canvas constructor with the parent
+        as the only argument
+        :param parent: Tkinter widget (TK)
+        """
         super().__init__(parent)
         self.blobs = []
-        self.blob_colors = [
+        self.blob_colors = [    # list of colors to construct the blobs from
             "purple",
             "red",
+            "yellow"
             "green",
-            "blue"
+            "blue",
+            "#889571",
+            "#D1A04B",
+            "#4BA9D1",
+            "#D14B56",
+            "#EDDE53"
         ]
 
     @staticmethod
-    def random_x():
+    def random_x() -> int:
+        """
+        This method generates a random x1 coordinate to spawn the blob
+        :return: int representing x1 coord
+        """
         return random.choice([i for i in range(0, 300)])
 
     @staticmethod
-    def random_speed():
+    def random_speed() -> str:
+        """
+        This method returns a random choice of fast or slow to define the velocity of a blob
+        :return: string representing speed
+        """
         return random.choice(["fast", "slow"])
 
     @staticmethod
-    def random_size():
+    def random_size() -> str:
+        """
+        This method returns a random choice of small or large to define the size of the blob
+        :return: string representation of size
+        """
         return random.choice(["small", "large"])
 
-    def random_coordinates(self):
+    def random_coordinates(self) -> tuple:
+        """
+        This method creates random coordinates, speed, size, and color for the blob class
+        :return: tuple of values to create the Blob class with
+        """
         size = self.random_size()
         x1 = self.random_x()
         x2 = 500
@@ -244,8 +275,12 @@ class LavaLamp(tk.Canvas):
             speed = random.randrange(1, 9)
         return x1, x2, y1, y2, random_color, speed
 
-    def build_blobs(self):
-        for i in range(500):
+    def build_blobs(self) -> None:
+        """
+        This method creates 699 random blobs and places them on the canvas for a dynamic background
+        :return: void
+        """
+        for i in range(700):
             x1, x2, y1, y2, random_color, speed = self.random_coordinates()
             self.blobs.append(
                 Blob(self, x1, x2, y1, y2, random_color, speed)
@@ -253,13 +288,32 @@ class LavaLamp(tk.Canvas):
 
 
 class Blob:
-    def __init__(self, canvas: LavaLamp, x1=0, x2=500, y1=100, y2=400, color='blue', velocity=1):
+    """
+    The blob class creates a circle on the parent class (canvas) which will move up the canvas hitting the top
+    threshold then moving down the canvas until it hits the lowest threshold. moving speed is defined by
+    the yv attribute
+    """
+    def __init__(self, canvas: LavaLamp, x1: int, x2: int, y1: int, y2: int, color: str, velocity: int) -> None:
+        """
+        This constructor creates the blob with arguments for coordinates, color, and velocity
+        :param canvas: parent class for blob to be placed on (LavaLamp/Canvas class)
+        :param x1: integer coordinate
+        :param x2: integer coordinate
+        :param y1: integer coordinate
+        :param y2: integer coordinate
+        :param color: string color
+        :param velocity: integer for speed at which the blob will `vibe`
+        """
         self.parent_canvas = canvas
         self.max_y1 = 400
         self.circle = canvas.create_oval(x1, x2, y1, y2, fill=color)
         self.yv = -velocity
 
-    def vibe(self):
+    def vibe(self) -> None:
+        """
+        This method moves the Blob along the canvas according to its defined yv
+        :return: void
+        """
         self.parent_canvas.move(self.circle, 0, self.yv)
         coordinates = self.parent_canvas.coords(self.circle)
         if coordinates[3] <= 0 or coordinates[1] > self.parent_canvas.winfo_height():
@@ -267,9 +321,9 @@ class Blob:
 
 
 if __name__ == "__main__":
-    app = App()
-    app.build()
-    while True:
+    app = App()  # create the main app instance
+    app.build()  # call the build method to add all widgets on the screen
+    while True:  # while loop to add and move the Blobs on the LavaLamp canvas
         try:
             for blob in app.canvas.blobs:
                 blob.vibe()
