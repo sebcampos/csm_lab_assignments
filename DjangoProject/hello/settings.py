@@ -55,7 +55,9 @@ ROOT_URLCONF = 'hello.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        "DIRS": [
+          #  BASE_DIR / "templates"    <-- this is a way to add templates/html pages from the top level
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
