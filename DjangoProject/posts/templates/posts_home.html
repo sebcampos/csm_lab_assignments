@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Message Board App</h1>
+    <ul>
+        <!-- since this page is defined with a model `Posts`-->
+        <!-- a variable calles `post` exists in our page-->
+        {% for post in post_list %}
+            <li>{{ post.text }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
