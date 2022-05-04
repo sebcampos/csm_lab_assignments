@@ -67,7 +67,7 @@ class App(tk.Tk):
         if "https://" not in url:
             url = "https://" + url
 
-        if re.search(r"https://.+\.[a-zA-Z]{3}", url):
+        if re.search(r"https://.+\.[a-zA-Z]{2,3}", url):
             return url
         return False
 

@@ -70,7 +70,6 @@ class MyHTMLParser(HTMLParser):
 
 if __name__ == "__main__":
     link = 'https://collegeofsanmateo.edu/wellnesscenter/'
-
     response = urlopen(link)
     html_page = response.read().decode().lower()
 
@@ -78,4 +77,5 @@ if __name__ == "__main__":
     parser.feed(html_page)
 
     parser.frequency(3)
-    parser.dump_data("test.txt")
+
+

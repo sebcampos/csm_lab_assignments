@@ -48,7 +48,7 @@ class MyHTMLParser(HTMLParser):
         :param data:
         :return: void
         """
-        match = re.search(r"([A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[a-zA-z]{3})", data)
+        match = re.search(r"([A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[a-zA-z]{2,3})", data)
         if match:
             email = match.groups()[0]
             self.emails.append(email)
@@ -140,7 +140,7 @@ class App(tk.Tk):
         if "https://" not in url:
             url = "https://" + url
 
-        if re.search(r"https://.+\.[a-zA-Z]{3}", url):
+        if re.search(r"https://.+\.[a-zA-Z]{2,3}", url):
             return url
         return False
 

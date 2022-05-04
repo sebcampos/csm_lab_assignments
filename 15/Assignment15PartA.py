@@ -48,7 +48,7 @@ class MyHTMLParser(HTMLParser):
         :param data:
         :return: void
         """
-        match = re.search(r"([A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[a-zA-z]{3})", data)
+        match = re.search(r"([A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[a-zA-z]{2,3})", data)
         if match:
             email = match.groups()[0]
             self.emails.append(email)
